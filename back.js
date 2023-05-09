@@ -4,7 +4,7 @@ class ProductManager {
         this.nextId = 1;
     }
 
-    addProduct(title, description, price, thumbnail, code, stock) {
+    addProduct({title, description, price, thumbnail, code, stock}) {
         if (!title || !description || !price || !thumbnail || !code || !stock) {
             console.error('All fields are required');
             return;
@@ -16,7 +16,7 @@ class ProductManager {
         }
 
         const newProduct = {
-            id: this.nextId,
+            id: !this.products.length ? 1 : this.products[this.products.length-1].id + 1,
             title,
             description,
             price,
@@ -42,8 +42,8 @@ class ProductManager {
 }
 const manager = new ProductManager();
 
-manager.addProduct('Product 1', 'Description 1', 10, 'thumbnail1.jpg', 'code1', 5);
-manager.addProduct('Product 2', 'Description 2', 20, 'thumbnail2.jpg', 'code2', 10);
+manager.addProduct({title:'Product 1', description:'Description 1', price: 10, thumbnail:'thumbnail1.jpg',code: 'code1',stock: 5});
+manager.addProduct({title:'Product 2',description: 'Description 2', price: 20, thumbnail: 'thumbnail2.jpg', code: 'code2',stock: 10});
 
 console.log(manager.getProducts());
 // Output: [{id: 1, title: "Product 1", description: "Description 1", price: 10, thumbnail: "thumbnail1.jpg", code: "code1", stock: 5}, {id: 2, title: "Product 2", description: "Description 2", price: 20, thumbnail: "thumbnail2.jpg", code: "code2", stock: 10}]
